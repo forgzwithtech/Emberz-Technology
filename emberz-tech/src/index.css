@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: #010101;
+  color-scheme: dark;
+  --font-artifact: 'Orbitron', sans-serif;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: var(--font-artifact);
+  color: white;
+}
+
+/* Three.js Bloom needs this to not get clipped */
+canvas {
+  touch-action: none;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #C37A4B;
+  border-radius: 10px;
+}
