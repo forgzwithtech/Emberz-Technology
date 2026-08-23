@@ -5,10 +5,11 @@ import { Observer } from "gsap/Observer";
 
 import { Scene } from "../components/canvas/Scene";
 import { Navbar } from "../components/layout/Navbar";
+import { ScrollIndicator } from "../components/layout/ScrollIndicator"; // <-- NEW IMPORT
 import { HeroSection } from "../components/home/HeroSection";
 import { ServicesSection } from "../components/home/ServicesSection";
 import { LabsSection } from "../components/home/LabsSection";
-import { ContactSection } from "../components/home/ContactSection"; 
+import { ContactSection } from "../components/home/ContactSection";
 
 gsap.registerPlugin(Observer);
 
@@ -17,10 +18,6 @@ export function Home() {
   const indexRef = useRef(0);
   const isAnimating = useRef(false);
 
-  // 0 = Hero
-  // 1-4 = Services
-  // 5-8 = Labs
-  // 9 = Contact Screen
   const totalScreens = 10; 
 
   const changeScreen = (newIndex: number) => {
@@ -63,13 +60,17 @@ export function Home() {
   return (
     <div className="fixed inset-0 w-full h-screen overflow-hidden bg-[#070709] text-white selection:bg-[#e3c091] selection:text-black">
       <Scene activeIndex={activeIndex} />
-      <Navbar />
+      <Navbar activeIndex={activeIndex} onNavigate={changeScreen} />
+      
       <main className="relative w-full h-full z-10">
         <HeroSection activeIndex={activeIndex} />
         <ServicesSection activeIndex={activeIndex} />
         <LabsSection activeIndex={activeIndex} />
-        <ContactSection activeIndex={activeIndex} /> {/* <-- NEW COMPONENT */}
+        <ContactSection activeIndex={activeIndex} />
       </main>
+
+      {/* Persistent HUD Scroll Cue */}
+      <ScrollIndicator activeIndex={activeIndex} />
     </div>
   );
 }

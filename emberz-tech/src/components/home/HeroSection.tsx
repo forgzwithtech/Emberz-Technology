@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { ArrowUpRight, ShieldCheck, Terminal, Cpu } from "lucide-react";
+import { ArrowUpRight, Terminal, Cpu } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 

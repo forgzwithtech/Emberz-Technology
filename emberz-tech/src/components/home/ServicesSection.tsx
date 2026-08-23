@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { Smartphone, Server, Cpu, Code2, WifiOff } from "lucide-react";
+import { Server, Cpu, Code2, WifiOff } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
