@@ -41,15 +41,26 @@ export function Home() {
     const obs = Observer.create({
       target: window,
       type: "wheel,touch,pointer",
-      tolerance: 20, 
+      tolerance: 15,
       preventDefault: true,
-      onDown: () => {
-        // SWIPE UP / MOUSE WHEEL UP -> GO TO PREVIOUS SCREEN
-        if (!isAnimating.current && indexRef.current > 0) changeScreen(indexRef.current - 1);
-      },
-      onUp: () => {
-        // SWIPE DOWN / MOUSE WHEEL DOWN -> GO TO NEXT SCREEN
-        if (!isAnimating.current && indexRef.current < totalScreens - 1) changeScreen(indexRef.current + 1);
+      onChange: (self) => {
+        if (isAnimating.current) return;
+
+        const isWheel = self.event && self.event.type.includes("wheel");
+        
+        // Wheel: positive deltaY means scrolling down
+        // Touch/Pointer: negative deltaY means flicking/dragging up
+        const isForward = isWheel ? self.deltaY > 0 : self.deltaY < 0;
+
+        if (isForward) {
+          if (indexRef.current < totalScreens - 1) {
+            changeScreen(indexRef.current + 1);
+          }
+        } else {
+          if (indexRef.current > 0) {
+            changeScreen(indexRef.current - 1);
+          }
+        }
       },
     });
 
@@ -71,7 +82,6 @@ export function Home() {
         <ContactSection activeIndex={activeIndex} />
       </main>
 
-      {/* Persistent HUD Scroll Cue */}
       <ScrollIndicator activeIndex={activeIndex} />
     </div>
   );
