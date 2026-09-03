@@ -5,7 +5,7 @@ import { Observer } from "gsap/Observer";
 
 import { Scene } from "../components/canvas/Scene";
 import { Navbar } from "../components/layout/Navbar";
-import { ScrollIndicator } from "../components/layout/ScrollIndicator"; // <-- NEW IMPORT
+import { ScrollIndicator } from "../components/layout/ScrollIndicator";
 import { HeroSection } from "../components/home/HeroSection";
 import { ServicesSection } from "../components/home/ServicesSection";
 import { LabsSection } from "../components/home/LabsSection";
@@ -44,10 +44,12 @@ export function Home() {
       tolerance: 20, 
       preventDefault: true,
       onDown: () => {
-        if (!isAnimating.current && indexRef.current < totalScreens - 1) changeScreen(indexRef.current + 1);
+        // SWIPE UP / MOUSE WHEEL UP -> GO TO PREVIOUS SCREEN
+        if (!isAnimating.current && indexRef.current > 0) changeScreen(indexRef.current - 1);
       },
       onUp: () => {
-        if (!isAnimating.current && indexRef.current > 0) changeScreen(indexRef.current - 1);
+        // SWIPE DOWN / MOUSE WHEEL DOWN -> GO TO NEXT SCREEN
+        if (!isAnimating.current && indexRef.current < totalScreens - 1) changeScreen(indexRef.current + 1);
       },
     });
 
