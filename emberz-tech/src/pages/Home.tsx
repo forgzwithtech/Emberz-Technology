@@ -38,7 +38,9 @@ export function Home() {
     isAnimating.current = true;
     indexRef.current = newIndex;
     setActiveIndex(newIndex);
-    setTimeout(() => { isAnimating.current = false; }, 750);
+    setTimeout(() => {
+      isAnimating.current = false;
+    }, 750);
   };
 
   useGSAP(() => {
@@ -79,8 +81,8 @@ export function Home() {
   }, [showContent]);
 
   return (
-    <div className="fixed inset-0 w-full h-screen overflow-hidden bg-[#070709] text-white selection:bg-[#e3c091] selection:text-black">
-      {/* Preloader blocks the UI until the 3D scene compiles */}
+    <div className="fixed inset-0 w-full h-screen h-[100dvh] overflow-hidden bg-[#070709] text-white selection:bg-[#e3c091] selection:text-black">
+      {/* Cyber/HUD Preloader gate */}
       {!showContent && (
         <Preloader
           progress={progress}
@@ -89,10 +91,10 @@ export function Home() {
         />
       )}
 
-      {/* 3D Scene starts rendering in the background immediately */}
+      {/* 3D Scene starts initializing and compiling shaders immediately */}
       <Scene activeIndex={activeIndex} onLoaded={handleSceneLoaded} />
 
-      {/* Main Interactive Interface mounts smoothly upon load completion */}
+      {/* Interactive UI and sections revealed upon shader readiness */}
       {showContent && (
         <>
           <Navbar activeIndex={activeIndex} onNavigate={changeScreen} />
