@@ -24,7 +24,7 @@ export function Home() {
     isAnimating.current = true;
     indexRef.current = newIndex;
     setActiveIndex(newIndex);
-    setTimeout(() => { isAnimating.current = false; }, 500);
+    setTimeout(() => { isAnimating.current = false; }, 750);
   };
 
   useGSAP(() => {
@@ -41,15 +41,12 @@ export function Home() {
     const obs = Observer.create({
       target: window,
       type: "wheel,touch,pointer",
-      tolerance: 15,
+      tolerance: 20,
       preventDefault: true,
       onChange: (self) => {
         if (isAnimating.current) return;
 
         const isWheel = self.event && self.event.type.includes("wheel");
-        
-        // Wheel: positive deltaY means scrolling down
-        // Touch/Pointer: negative deltaY means flicking/dragging up
         const isForward = isWheel ? self.deltaY > 0 : self.deltaY < 0;
 
         if (isForward) {

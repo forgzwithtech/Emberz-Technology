@@ -9,9 +9,9 @@ interface NavbarProps {
 }
 
 const NAV_ITEMS = [
-  { label: "Work", targetIndex: 5 },       // LabsSection
-  { label: "Capabilities", targetIndex: 1 },// ServicesSection
-  { label: "Contact", targetIndex: 9 },     // ContactSection
+  { label: "Work", targetIndex: 5 },
+  { label: "Capabilities", targetIndex: 1 },
+  { label: "Contact", targetIndex: 9 },
 ];
 
 export function Navbar({ activeIndex, onNavigate }: NavbarProps) {
@@ -19,7 +19,6 @@ export function Navbar({ activeIndex, onNavigate }: NavbarProps) {
   const navRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Cinematic entrance on mount
   useGSAP(() => {
     if (!navRef.current) return;
     gsap.fromTo(
@@ -29,39 +28,36 @@ export function Navbar({ activeIndex, onNavigate }: NavbarProps) {
     );
   }, []);
 
-  // Handle open and reverse close animations using GSAP timelines
   useEffect(() => {
     if (menuOpen) {
-      // OPEN ANIMATION
       gsap.fromTo(
         menuRef.current,
         { opacity: 0, y: -15, pointerEvents: "none" },
-        { opacity: 1, y: 0, pointerEvents: "auto", duration: 0.35, ease: "power2.out" }
+        { opacity: 1, y: 0, pointerEvents: "auto", duration: 0.3, ease: "power2.out" }
       );
       gsap.fromTo(
         ".mobile-menu-item",
         { x: -20, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.4, stagger: 0.06, ease: "power3.out", delay: 0.1 }
+        { x: 0, opacity: 1, duration: 0.35, stagger: 0.05, ease: "power3.out", delay: 0.08 }
       );
     }
   }, [menuOpen]);
 
   const handleToggle = () => {
     if (menuOpen) {
-      // REVERSE CLOSE ANIMATION
       gsap.to(".mobile-menu-item", {
         x: -15,
         opacity: 0,
-        duration: 0.2,
-        stagger: 0.03,
+        duration: 0.18,
+        stagger: 0.02,
         ease: "power2.in",
       });
       gsap.to(menuRef.current, {
         opacity: 0,
         y: -15,
-        duration: 0.3,
+        duration: 0.25,
         ease: "power2.in",
-        delay: 0.1,
+        delay: 0.08,
         onComplete: () => setMenuOpen(false),
       });
     } else {
@@ -74,16 +70,16 @@ export function Navbar({ activeIndex, onNavigate }: NavbarProps) {
       gsap.to(".mobile-menu-item", {
         x: -15,
         opacity: 0,
-        duration: 0.2,
-        stagger: 0.03,
+        duration: 0.18,
+        stagger: 0.02,
         ease: "power2.in",
       });
       gsap.to(menuRef.current, {
         opacity: 0,
         y: -15,
-        duration: 0.3,
+        duration: 0.25,
         ease: "power2.in",
-        delay: 0.1,
+        delay: 0.08,
         onComplete: () => setMenuOpen(false),
       });
     }
@@ -93,10 +89,9 @@ export function Navbar({ activeIndex, onNavigate }: NavbarProps) {
   return (
     <header
       ref={navRef}
-      className="fixed top-0 left-0 w-full z-50 py-5 sm:py-6 px-6 sm:px-12 bg-gradient-to-b from-[#070709]/80 to-transparent backdrop-blur-sm pointer-events-auto"
+      className="fixed top-0 left-0 w-full z-50 py-5 sm:py-6 px-6 sm:px-12 bg-transparent pointer-events-none"
     >
-      <nav className="flex items-center justify-between max-w-7xl mx-auto">
-        
+      <nav className="flex items-center justify-between max-w-7xl mx-auto pointer-events-auto">
         {/* Studio Branding */}
         <button 
           onClick={() => handleNavClick(0)}
@@ -115,8 +110,8 @@ export function Navbar({ activeIndex, onNavigate }: NavbarProps) {
           </div>
         </button>
 
-        {/* Desktop Links */}
-        <ul className="hidden md:flex items-center gap-8 bg-black/40 border border-white/5 px-6 py-2 rounded-full backdrop-blur-md">
+        {/* Desktop Navigation Pill */}
+        <ul className="hidden md:flex items-center gap-8 bg-black/40 border border-white/10 px-6 py-2 rounded-full backdrop-blur-md">
           {NAV_ITEMS.map((item) => {
             const isActive = activeIndex >= item.targetIndex && activeIndex < item.targetIndex + 4;
             return (
@@ -134,10 +129,10 @@ export function Navbar({ activeIndex, onNavigate }: NavbarProps) {
           })}
         </ul>
 
-        {/* Start a Project Button */}
+        {/* Start a Project CTA */}
         <button
           onClick={() => handleNavClick(9)}
-          className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 text-xs font-mono uppercase tracking-widest text-white bg-white/[0.02] hover:bg-[#e3c091] hover:text-black hover:border-[#e3c091] transition-all duration-300 cursor-pointer group"
+          className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 text-xs font-mono uppercase tracking-widest text-white bg-black/40 backdrop-blur-md hover:bg-[#e3c091] hover:text-black hover:border-[#e3c091] transition-all duration-300 cursor-pointer group"
         >
           <span>Start a Project</span>
           <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -145,7 +140,7 @@ export function Navbar({ activeIndex, onNavigate }: NavbarProps) {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-white p-2 rounded-lg bg-white/5 border border-white/10 cursor-pointer"
+          className="md:hidden text-white p-2 rounded-lg bg-black/50 border border-white/10 backdrop-blur-md cursor-pointer"
           onClick={handleToggle}
           aria-label="Toggle menu"
         >
@@ -153,11 +148,11 @@ export function Navbar({ activeIndex, onNavigate }: NavbarProps) {
         </button>
       </nav>
 
-      {/* Mobile Dropdown Menu (Always rendered when state is true, allowing exit tweens) */}
+      {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <div 
           ref={menuRef}
-          className="md:hidden absolute top-full left-0 w-full bg-[#070709]/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 flex flex-col gap-4 shadow-2xl opacity-0"
+          className="md:hidden absolute top-full left-0 w-full bg-[#070709]/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 flex flex-col gap-4 shadow-2xl opacity-0 pointer-events-auto"
         >
           {NAV_ITEMS.map((link) => (
             <button
