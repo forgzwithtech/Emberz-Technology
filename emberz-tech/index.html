@@ -20,6 +20,10 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://emberz-technology.vercel.app/" />
 
+    <!-- Explicit Site Identity for Google Search Snippets -->
+    <meta name="application-name" content="Emberz Technology" />
+    <meta name="apple-mobile-web-app-title" content="Emberz Technology" />
+
     <!-- Comprehensive High-Intent Keywords List -->
     <meta 
       name="keywords" 
@@ -61,7 +65,7 @@
       " 
     />
 
-    <!-- Social / Open Graph Previews (WhatsApp, LinkedIn, Facebook) -->
+    <!-- Social / Open Graph Previews -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://emberz-technology.vercel.app/" />
     <meta property="og:title" content="Emberz Technology | Tech Agency, Web & App Developers in Akure" />
@@ -76,11 +80,12 @@
     <meta property="twitter:description" content="Custom web platforms, high-performance mobile apps, and enterprise engineering solutions." />
     <meta property="twitter:image" content="https://emberz-technology.vercel.app/logo.png" />
 
-    <!-- Structured JSON-LD Schema: Site Identity -->
+    <!-- Structured JSON-LD Schema: Explicit Site Identity -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
+        "@id": "https://emberz-technology.vercel.app/#website",
         "name": "Emberz Technology",
         "alternateName": [
           "Emberz Tech",
@@ -95,6 +100,7 @@
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
+        "@id": "https://emberz-technology.vercel.app/#organization",
         "name": "Emberz Technology",
         "image": "https://emberz-technology.vercel.app/logo.png",
         "url": "https://emberz-technology.vercel.app/",
@@ -150,6 +156,10 @@
     </script>
   </head>
   <body>
+    <!-- Crawlable H1 for Instant Site-Name Extraction -->
+    <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
+      Emberz Technology
+    </h1>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
